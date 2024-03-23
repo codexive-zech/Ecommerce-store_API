@@ -31,7 +31,6 @@ app.use(xss());
 app.use(mongoSanitize());
 app.use(helmet());
 app.use(cors());
-app.use(morgan("tiny"));
 app.use(express.json()); // having access to parse json data in req-body
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.static("./public"));
@@ -42,16 +41,6 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/orders", orderRouter);
-
-app.get("/", (req, res) => {
-  res.send("E-commerce API");
-});
-
-app.get("/api/v1", (req, res) => {
-  // console.log(req.cookies);
-  console.log(req.signedCookies);
-  res.send("E-commerce API");
-});
 
 app.use(notFoundErrorMiddleware);
 app.use(errorHandlerMiddleware);
